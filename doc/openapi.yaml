@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: Projeto de Controle de Filmes - SENAI Jandira
+  title: Projeto de Controle de Produtos (Landing Page) - Frequency 80 Cafe
   description: |-
-   API destinada a controle de filmes para o projeto "Bem Legal" do SENAI
+    API destinada a controle de produtos para a cafeteria temática "Frequency 80 Cafe".
   termsOfService: http://swagger.io/terms/
   contact:
     email: gustavovidalgva@gmail.com
@@ -14,29 +14,123 @@ externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
 servers:
-  - url: http://
+  - url: http://localhost:8080
 paths:
-  # ENDPOINTS - PRODUTO
-  /v1/frequency80cafe/produto:
+  # ENDPOINTS - CATEGORIA
+  /v1/frequency80cafe/landingpage/categoria:
     get:
       tags:
-        - Produto
-      summary: Lista todos os produtos
-      description: Endpoint para listar todos os produtos cadastradss
+        - Categoria
+      summary: Lista todas as categorias
+      description: Endpoint para listar todas as categorias cadastradas
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Produto'
-        '404':
+                  $ref: "#/components/schemas/CategoriaGet"
+        "404":
           description: Error Not Found
-        '500':
+        "500":
           description: Error Internal Server (Controller | Model)
-  /v1/frequency80cafe/produto/{id}:
+  /v1/frequency80cafe/landingpage/categoria/{id}:
+    get:
+      tags:
+        - Categoria
+      summary: Busca uma categoria pelo id
+      description: Endpoint para retornar uma categoria pelo id
+      parameters:
+        - name: id
+          in: path
+          description: id para realizar a busca da categoria
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaGet"
+        "400":
+          description: Error Bad Request (id)
+        "404":
+          description: Error Not Found
+        "500":
+          description: Error Internal Server (Controller | Model)
+  # ENDPOINTS - IMAGEM
+  /v1/frequency80cafe/landingpage/imagem:
+    get:
+      tags:
+        - Imagem
+      summary: Lista todas as imagens
+      description: Endpoint para listar todas as imagens cadastradas
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ImagemGet"
+        "404":
+          description: Error Not Found
+        "500":
+          description: Error Internal Server (Controller | Model)
+  /v1/frequency80cafe/landingpage/imagem/{id}:
+    get:
+      tags:
+        - Imagem
+      summary: Busca uma imagem pelo id
+      description: Endpoint para retornar uma imagem pelo id
+      parameters:
+        - name: id
+          in: path
+          description: id para realizar a busca da imagem
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImagemGet"
+        "400":
+          description: Error Bad Request (id)
+        "404":
+          description: Error Not Found
+        "500":
+          description: Error Internal Server (Controller | Model)
+  # ENDPOINTS - PRODUTO
+  /v1/frequency80cafe/landingpage/produto:
+    get:
+      tags:
+        - Produto
+      summary: Lista todos os produtos
+      description: Endpoint para listar todos os produtos cadastrados
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProdutoGet"
+        "404":
+          description: Error Not Found
+        "500":
+          description: Error Internal Server (Controller | Model)
+  /v1/frequency80cafe/landingpage/produto/{id}:
     get:
       tags:
         - Produto
@@ -51,67 +145,75 @@ paths:
             type: integer
             format: int64
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Produto'          
-        '400':
+                $ref: "#/components/schemas/ProdutoGet"
+        "400":
           description: Error Bad Request (id)
-        '404':
-          description: Error Not found
-        '500':
+        "404":
+          description: Error Not Found
+        "500":
           description: Error Internal Server (Controller | Model)
 components:
   schemas:
-    # SCHEMAS GERAIS
-    Produto:
+    # SCHEMAS PARA OS GETS
+    CategoriaGet:
       required:
         - id
-        - nome
-        - preco
-        - descricao
-        - status
       type: object
       properties:
         id:
           type: integer
+          minimum: 1
+        categoria:
+          type: string
+          description: O número máximo de caracteres é de 45
+          maxLength: 45
+    ImagemGet:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        url:
+          type: string
+          format: uri
+          pattern: "^https?://.+"
+          example: "https://imagem.example.com"
+          description: O número máximo de caracteres é de 255
+          maxLength: 255
+    ProdutoGet:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
         nome:
           type: string
-          description: O número máximo de caracteres é de 40
+          description: O número máximo de caracteres é de 100
+          maxLength: 100
+        descricao:
+          type: string
+          description: O número máximo de caracteres é ilimitado
         preco:
           type: number
           format: double
-          example: 999.99
-        descricao:
-          type: string
-        status:
+          minimum: 0
+          maximum: 999.99
+        is_disponivel:
           type: boolean
         imagem:
           type: array
           items:
-            type: object
-            properties:
-              id:
-                type: integer
-              url:
-                type: string
+            $ref: "#/components/schemas/ImagemGet"
         categoria:
           type: array
           items:
-            type: object
-            properties:
-              id:
-                type: integer
-              categoria:
-                type: string
-
-
-  requestBodies:
-    Produto:
-      description: Objeto que deve ser enviado no Body das requisicoes
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Produto'
+            $ref: "#/components/schemas/CategoriaGet"
