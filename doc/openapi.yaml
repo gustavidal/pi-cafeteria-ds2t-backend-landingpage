@@ -187,6 +187,22 @@ components:
           example: "https://imagem.example.com"
           description: O número máximo de caracteres é de 255
           maxLength: 255
+        produto: 
+          type: object
+          properties:
+            id:
+              type: integer
+              minimum: 1
+            nome:
+              type: string
+              maxLength: 100
+            descricao:
+              type: string
+            preco:
+              type: number
+              format: double
+              minimum: 0.99
+              maximum: 999.99
     ProdutoGet:
       required:
         - id
@@ -207,8 +223,6 @@ components:
           format: double
           minimum: 0
           maximum: 999.99
-        is_disponivel:
-          type: boolean
         imagem:
           type: array
           items:
