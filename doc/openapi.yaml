@@ -15,12 +15,27 @@ externalDocs:
   url: http://swagger.io
 servers:
   - url: http://localhost:8080
+tags:
+  - name: "Administração (Admin)"
+    description: "Endpoints restritos (admin) para gerenciamento do sistema"
+  - name: "Administração (Categoria)"
+    description: "Endpoints restritos (categoria) para gerenciamento do sistema"
+  - name: "Administração (Imagem)"
+    description: "Endpoints restritos (imagem) para gerenciamento do sistema"
+  - name: "Administração (Produto)"
+    description: "Endpoints restritos (produto) para gerenciamento do sistema"
+  - name: "Landing Page (Categoria)"
+    description: "Endpoints públicos (categoria) utilizados na página principal"
+  - name: "Landing Page (Imagem)"
+    description: "Endpoints públicos (imagem) utilizados na página principal"
+  - name: "Landing Page (Produto)"
+    description: "Endpoints públicos (produto) utilizados na página principal"
 paths:
   # ENDPOINTS - CATEGORIA
-  /v1/frequency80cafe/landingpage/categoria:
+  /v1/frequency80cafe/categoria:
     get:
       tags:
-        - Categoria
+        - Landing Page (Categoria)
       summary: Lista todas as categorias
       description: Endpoint para listar todas as categorias cadastradas
       responses:
@@ -36,10 +51,10 @@ paths:
           description: Error Not Found
         "500":
           description: Error Internal Server (Controller | Model)
-  /v1/frequency80cafe/landingpage/categoria/{id}:
+  /v1/frequency80cafe/categoria/{id}:
     get:
       tags:
-        - Categoria
+        - Landing Page (Categoria)
       summary: Busca uma categoria pelo id
       description: Endpoint para retornar uma categoria pelo id
       parameters:
@@ -64,10 +79,10 @@ paths:
         "500":
           description: Error Internal Server (Controller | Model)
   # ENDPOINTS - IMAGEM
-  /v1/frequency80cafe/landingpage/imagem:
+  /v1/frequency80cafe/imagem:
     get:
       tags:
-        - Imagem
+        - Landing Page (Imagem)
       summary: Lista todas as imagens
       description: Endpoint para listar todas as imagens cadastradas
       responses:
@@ -83,10 +98,10 @@ paths:
           description: Error Not Found
         "500":
           description: Error Internal Server (Controller | Model)
-  /v1/frequency80cafe/landingpage/imagem/{id}:
+  /v1/frequency80cafe/imagem/{id}:
     get:
       tags:
-        - Imagem
+        - Landing Page (Imagem)
       summary: Busca uma imagem pelo id
       description: Endpoint para retornar uma imagem pelo id
       parameters:
@@ -111,10 +126,10 @@ paths:
         "500":
           description: Error Internal Server (Controller | Model)
   # ENDPOINTS - PRODUTO
-  /v1/frequency80cafe/landingpage/produto:
+  /v1/frequency80cafe/produto:
     get:
       tags:
-        - Produto
+        - Landing Page (Produto)
       summary: Lista todos os produtos
       description: Endpoint para listar todos os produtos cadastrados
       responses:
@@ -130,10 +145,10 @@ paths:
           description: Error Not Found
         "500":
           description: Error Internal Server (Controller | Model)
-  /v1/frequency80cafe/landingpage/produto/{id}:
+  /v1/frequency80cafe/produto/{id}:
     get:
       tags:
-        - Produto
+        - Landing Page (Produto)
       summary: Busca um produto pelo id
       description: Endpoint para retornar um produto pelo id
       parameters:
@@ -170,7 +185,6 @@ components:
           minimum: 1
         categoria:
           type: string
-          description: O número máximo de caracteres é de 45
           maxLength: 45
     ImagemGet:
       required:
@@ -185,24 +199,7 @@ components:
           format: uri
           pattern: "^https?://.+"
           example: "https://imagem.example.com"
-          description: O número máximo de caracteres é de 255
           maxLength: 255
-        produto: 
-          type: object
-          properties:
-            id:
-              type: integer
-              minimum: 1
-            nome:
-              type: string
-              maxLength: 100
-            descricao:
-              type: string
-            preco:
-              type: number
-              format: double
-              minimum: 0.99
-              maximum: 999.99
     ProdutoGet:
       required:
         - id
@@ -213,11 +210,9 @@ components:
           minimum: 1
         nome:
           type: string
-          description: O número máximo de caracteres é de 100
           maxLength: 100
         descricao:
           type: string
-          description: O número máximo de caracteres é ilimitado
         preco:
           type: number
           format: double
