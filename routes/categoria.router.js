@@ -8,12 +8,6 @@
 // Import do express
 const express = require('express')
 
-// Import do body-parser
-const bodyParser = require('body-parser')
-
-// Permitindo a utilização do JSON na body das requisições
-const bodyParserJSON = bodyParser.json()
-
 // Criando um objeto de rota para os endpoints
 const router = express.Router()
 

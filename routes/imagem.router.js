@@ -8,17 +8,8 @@
 // Import do express
 const express = require('express')
 
-// Import do body-parser
-const bodyParser = require('body-parser')
-
-// Permitindo a utilização do JSON na body das requisições
-const bodyParserJSON = bodyParser.json()
-
 // Criando um objeto de rota para os endpoints
 const router = express.Router()
-
-// Import do arquivo de verificação de token JWT
-const autenticar = require('../middleware/auth.js')
 
 // Import da controller de admin
 const controllerImagem = require('../controller/imagem/controller_imagem.js')
