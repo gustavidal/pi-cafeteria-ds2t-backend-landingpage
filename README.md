@@ -19,20 +19,24 @@ Este repositório contém o backend da API responsável pela landing page do Pro
 
 - **Node.js** - Runtime JavaScript
 - **JavaScript** - Linguagem de programação
-- **[Adicione aqui o framework/bibliotecas principais do projeto]**
+- **Express**
+- **CORS**
+- **Knex**
+- **mysql2**
 
 ## 📁 Estrutura do Projeto
 
 ```
-├── src/
-│   ├── controllers/     # Controladores da API
-│   ├── routes/         # Rotas da aplicação
-│   ├── models/         # Modelos de dados
-│   ├── middleware/     # Middlewares
-│   └── utils/          # Funções utilitárias
-├── config/             # Configurações do projeto
-├── package.json        # Dependências do projeto
-└── README.md           # Este arquivo
+├── controller/       # Controladores da API
+├── doc/              # Documentação Swagger
+├── model/            # Modelos de dados
+├── node_modules/     # Modelos do Node
+├── routes/           # Rotas da aplicação
+├── app.js            # Arquivo App
+├── LICENSE           # MIT License
+├── package-lock.json # Dependências do projeto
+├── package.json      # Dependências do projeto
+└── README.md         # Este arquivo
 ```
 
 ## ⚙️ Instalação
@@ -40,7 +44,7 @@ Este repositório contém o backend da API responsável pela landing page do Pro
 ### Pré-requisitos
 
 - Node.js (v14.0.0 ou superior)
-- npm ou yarn
+- npm
 
 ### Passos
 
@@ -55,17 +59,12 @@ cd pi-cafeteria-ds2t-backend-landingpage
 npm install
 ```
 
-3. **Configure as variáveis de ambiente:**
-```bash
-cp .env.example .env
-```
-
 4. **Inicie o servidor:**
 ```bash
-npm start
+node app.js
 ```
 
-O servidor será iniciado em `http://localhost:[PORTA]`
+O servidor será iniciado em `http://localhost:8090`
 
 ## 📚 Documentação da API
 
@@ -74,43 +73,14 @@ O servidor será iniciado em `http://localhost:[PORTA]`
 | Método | Rota | Descrição |
 |--------|------|-----------|
 | GET | `/` | Retorna informações da API |
-| [Adicione aqui outros endpoints] | | |
-
-## 🔧 Scripts Disponíveis
-
-```bash
-# Inicia o servidor
-npm start
-
-# Inicia o servidor em modo desenvolvimento (com hot-reload)
-npm run dev
-
-# Executa os testes
-npm test
-
-# Build do projeto
-npm run build
-```
-
-## 📝 Variáveis de Ambiente
-
-Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
-
-```env
-PORT=3000
-NODE_ENV=development
-# Adicione outras variáveis conforme necessário
-```
+| GET | `/:id` | Retorna informações de um item específico da API |
 
 ## 👨‍💻 Contribuidores
 
-- [Adicione aqui os nomes dos integrantes do projeto]
-
-## 📞 Contato
-
-Para dúvidas ou sugestões sobre o projeto, entre em contato com a equipe de desenvolvimento.
-
-**Email:** [adicione email de contato]
+- Estephano Borovicz, Desenvolvedor de Banco de Dados (MySQL)
+- Gustavo Vidal, Desenvolvedor Back-End (Node.js)
+- Kaique Carvalho, Desenvolvedor Front-End (HTML, CSS e JavaScript)
+- Ryan Alcântara, Desenvolvedor de Projetos
 
 ## 📄 Licença
 
