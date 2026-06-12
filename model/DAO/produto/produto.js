@@ -1,21 +1,25 @@
-/****************************************************************************************
- * Objetivo: Arquivo responsável pelo CRUD de dados de categoria no banco de dados MySQL.
+/*************************************************************************************
+ * Objetivo: Arquivo responsável pelo CRUD de dados de imagem no banco de dados MySQL.
  * Autor: Gustavo Vidal de Abreu
  * Data: 11/06/2026 (quinta-feira)
  * Versão: 1.0
-****************************************************************************************/
+*************************************************************************************/
 
 const knex = require('knex')
 const knexDatabaseConfig = require('../../database_config/knexConfig.js')
 const knexConnection = knex(knexDatabaseConfig.development)
 
-const insertCategoria = async function (categoria) {
+const insertProduto = async function (produto) {
     try {
         let sql = `
-            insert into tbl_categoria (
-                categoria
+            insert into tbl_produto (
+                nome,
+                descricao,
+                preco
             ) values (
-                '${categoria.categoria}'
+                replace('${produto.nome}', "'", ""),
+                replace('${produto.descricao}', "'", ""),
+                replace('${produto.preco}', "'", "")
             );
         `
 
@@ -31,12 +35,14 @@ const insertCategoria = async function (categoria) {
     }
 }
 
-const updateCategoria = async function (categoria) {
+const updateProduto = async function (produto) {
     try {
         let sql = `
-            update tbl_categoria set
-                categoria = '${categoria.categoria}'
-            where id = ${categoria.id};
+            update tbl_produto set
+                nome      = replace('${produto.nome}', "'", ""),
+                descricao = replace('${produto.descricao}', "'", ""),
+                preco     = replace('${produto.preco}', "'", "")
+            where id = ${produto.id};
         `
 
         let result = await knexConnection.raw(sql)
@@ -51,10 +57,10 @@ const updateCategoria = async function (categoria) {
     }
 }
 
-const selectAllCategoria = async function () {
+const selectAllProduto = async function () {
     try {
         let sql = `
-            select * from tbl_categoria order by id desc;
+            select * from tbl_produto order by id desc;
         `
 
         let result = await knexConnection.raw(sql)
@@ -69,10 +75,10 @@ const selectAllCategoria = async function () {
     }
 }
 
-const selectByIdCategoria = async function (id) {
+const selectByIdProduto = async function (id) {
     try {
         let sql = `
-            select * from tbl_categoria where id = ${id};
+            select * from tbl_produto where id = ${id};
         `
 
         let result = await knexConnection.raw(sql)
@@ -87,9 +93,9 @@ const selectByIdCategoria = async function (id) {
     }
 }
 
-const deleteCategoria = async function (id) {
+const deleteProduto = async function (id) {
     try {
-        let sql = `delete from tbl_categoria where id = ${id};`
+        let sql = `delete from tbl_produto where id = ${id};`
 
         let result = await knexConnection.raw(sql)
 
@@ -104,9 +110,9 @@ const deleteCategoria = async function (id) {
 }
 
 module.exports = {
-    insertCategoria,
-    updateCategoria,
-    selectAllCategoria,
-    selectByIdCategoria,
-    deleteCategoria
+    insertProduto,
+    updateProduto,
+    selectAllProduto,
+    selectByIdProduto,
+    deleteProduto
 }
